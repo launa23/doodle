@@ -1,0 +1,28 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  modules: [
+    '@nuxthub/core',
+    '@nuxt/ui',
+    '@nuxt/eslint',
+    'nuxt-auth-utils',
+  ],
+  devtools: { enabled: true },
+  css: ['~/assets/main.css'],
+  routeRules: {
+    '/drawings/**': { isr: true },
+  },
+  future: { compatibilityVersion: 4 },
+  compatibilityDate: '2025-10-14',
+  hub: {
+    blob: true,
+    ai: true,
+  },
+  // Development modules
+  eslint: {
+    config: {
+      stylistic: {
+        quotes: 'single',
+      },
+    },
+  },
+})
