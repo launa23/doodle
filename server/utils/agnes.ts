@@ -1,10 +1,19 @@
+function getAgnesConfig() {
+  const config = useRuntimeConfig()
+  const baseUrl = config.agnesAi?.baseUrl || process.env.AGNES_AI_BASE_URL || 'https://apihub.agnes-ai.com/v1'
+  const apiKey = config.agnesAi?.apiKey || process.env.AGNES_AI_API_KEY || 'sk-93h7AYHYx702u833mP7MlILpecMLCUddmIAKHEE7a3mgX5rG'
+  return { baseUrl, apiKey }
+}
+
 export async function describeDrawing(base64Image: string): Promise<string> {
+  const { baseUrl, apiKey } = getAgnesConfig()
+
   const agnesRes = await $fetch<{ choices?: Array<{ message?: { content?: string } }> }>(
-    `${process.env.AGNES_AI_BASE_URL || 'https://apihub.agnes-ai.com/v1'}/chat/completions`,
+    `${baseUrl}/chat/completions`,
     {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.AGNES_AI_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: {
@@ -32,12 +41,14 @@ export async function describeDrawing(base64Image: string): Promise<string> {
 }
 
 export async function generateAgnesImage(base64Image: string, description: string): Promise<string | null> {
+  const { baseUrl, apiKey } = getAgnesConfig()
+
   const aiImageRes = await $fetch<{ data?: Array<{ url?: string, b64_json?: string }> }>(
-    `${process.env.AGNES_AI_BASE_URL || 'https://apihub.agnes-ai.com/v1'}/images/generations`,
+    `${baseUrl}/images/generations`,
     {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.AGNES_AI_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: {
