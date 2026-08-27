@@ -1,7 +1,7 @@
 function getAgnesConfig() {
   const config = useRuntimeConfig()
-  const baseUrl = config.agnesAi?.baseUrl || process.env.AGNES_AI_BASE_URL
-  const apiKey = config.agnesAi?.apiKey || process.env.AGNES_AI_API_KEY
+  const baseUrl = config.agnesAi?.baseUrl || process.env.AGNES_AI_BASE_URL || 'https://apihub.agnes-ai.com/v1'
+  const apiKey = config.agnesAi?.apiKey || process.env.AGNES_AI_API_KEY || ''
   return { baseUrl, apiKey }
 }
 
@@ -40,7 +40,7 @@ export async function describeDrawing(base64Image: string): Promise<string> {
   return rawText.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim()
 }
 
-export async function generateAgnesImage(base64Image: string, description: string): Promise<string | null> {
+export async function generateAgnesImage(base64Image: string, description?: string): Promise<string | null> {
   const { baseUrl, apiKey } = getAgnesConfig()
 
   const aiImageRes = await $fetch<{ data?: Array<{ url?: string, b64_json?: string }> }>(
@@ -53,7 +53,7 @@ export async function generateAgnesImage(base64Image: string, description: strin
       },
       body: {
         model: 'agnes-image-2.1-flash',
-        prompt: `Create a clean, highly-detailed, beautiful digital artwork based on this concept: ${description || 'a drawing'}. Fully replace all crude black sketch lines, marker strokes, and doodle outlines with realistic textures, smooth shading, and natural lighting. Do NOT retain, overlay, or draw any black marker lines or sketch strokes in the final artwork.`,
+        prompt: `Create a clean, highly-detailed, beautiful digital artwork based on this drawing. Fully replace all crude black sketch lines, marker strokes, and doodle outlines with realistic textures, smooth shading, and natural lighting. Do NOT retain, overlay, or draw any black marker lines or sketch strokes in the final artwork.`,
         size: '512x512',
         extra_body: {
           image: [base64Image],

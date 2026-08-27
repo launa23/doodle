@@ -18,8 +18,8 @@ export default defineNuxtConfig({
       password: process.env.NUXT_SESSION_PASSWORD || '',
     },
     agnesAi: {
-      baseUrl: process.env.AGNES_AI_BASE_URL,
-      apiKey: process.env.AGNES_AI_API_KEY,
+      baseUrl: process.env.AGNES_AI_BASE_URL || 'https://apihub.agnes-ai.com/v1',
+      apiKey: process.env.AGNES_AI_API_KEY || '',
     },
     oauth: {
       google: {

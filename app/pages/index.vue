@@ -38,7 +38,7 @@ function drawingTitle(drawing: BlobObject) {
 
 <template>
   <div class="my-8">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 ">
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
       <div
         v-for="drawing in data?.blobs"
         :key="drawing.pathname"

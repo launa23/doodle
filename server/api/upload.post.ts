@@ -29,26 +29,14 @@ export default eventHandler(async (event) => {
     types: ['image/jpeg'],
   })
 
-  // Describe drawing and generate AI image using Agnes AI helpers
-  const base64Image = `data:image/jpeg;base64,${Buffer.from(drawingArrayBuffer).toString('base64')}`
-  const description = await describeDrawing(base64Image)
-
-  if (description.toLowerCase().includes('penis')) {
-    throw createError({
-      statusCode: 400,
-      message: 'You cannot upload this kind of drawings.',
-    })
-  }
-
   // Create a new pathname to be smaller than the last one uploaded
-  // So the blob listing will send the last uploaded image at first
-  // We use the timestamp in 2050 minus the current timestamp
-  // So this project will start to be buggy in 2050, sorry for that
   const name = `${new Date('2050-01-01').getTime() - Date.now()}`
+  const base64Image = `data:image/jpeg;base64,${Buffer.from(drawingArrayBuffer).toString('base64')}`
 
-  // Generate an image with Agnes AI
+  // Directly generate AI image from base64 drawing to save Vision tokens and speed up processing
+  const description = 'Bức vẽ nghệ thuật AI'
   let aiImage = null
-  const imageUrl = await generateAgnesImage(base64Image, description)
+  const imageUrl = await generateAgnesImage(base64Image)
   if (imageUrl) {
     const imageArrayBuffer = await $fetch<ArrayBuffer>(imageUrl, { responseType: 'arrayBuffer' }).catch(() => null)
     if (imageArrayBuffer) {
@@ -60,7 +48,6 @@ export default eventHandler(async (event) => {
     }
   }
 
-  console.log('blob put', `${name}.jpg`, drawing)
   return blob.put(`${name}.jpg`, drawing, {
     prefix: 'drawings/',
     addRandomSuffix: true,
@@ -75,5 +62,4 @@ export default eventHandler(async (event) => {
       aiImageUrl: aiImage?.customMetadata?.url || '',
     },
   })
-
 })

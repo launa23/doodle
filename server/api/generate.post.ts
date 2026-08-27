@@ -11,12 +11,13 @@ export default eventHandler(async (event) => {
   const drawing = form.get('drawing') as File
   const drawingArrayBuffer = await drawing.arrayBuffer()
 
-  // Describe drawing and generate AI image using Agnes AI helpers
+  // Directly generate AI image from base64 drawing to save Vision tokens
   const base64Image = `data:image/jpeg;base64,${Buffer.from(drawingArrayBuffer).toString('base64')}`
-  const description = await describeDrawing(base64Image)
+  const description = 'Bức vẽ nghệ thuật AI'
   setHeader(event, 'x-description', description)
 
-  const imageUrl = await generateAgnesImage(base64Image, description)
+  const imageUrl = await generateAgnesImage(base64Image)
+
   if (!imageUrl) {
     throw createError({
       statusCode: 500,
