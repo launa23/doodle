@@ -13,6 +13,18 @@ export default defineNuxtConfig({
   },
   future: { compatibilityVersion: 4 },
   compatibilityDate: '2025-10-14',
+  runtimeConfig: {
+    oauth: {
+      google: {
+        clientId: process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID || '',
+        clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET || '',
+      },
+      github: {
+        clientId: process.env.NUXT_OAUTH_GITHUB_CLIENT_ID || '',
+        clientSecret: process.env.NUXT_OAUTH_GITHUB_CLIENT_SECRET || '',
+      },
+    },
+  },
   hub: {
     blob: true,
     ai: true,
