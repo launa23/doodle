@@ -13,12 +13,6 @@ The application is running with server-side, authentication and AI is powered by
 - **Global Storage**: Your creations are stored on the filesystem locally and on many [Blob providers](https://v1.hub.nuxt.com/docs/features/blob)
 - **Flexible Authentication**: Sign in with Google, GitHub, or stay anonymous (local)
 
-### 🎥 See It in Action
-
-https://github.com/Atinux/atidraw/assets/904724/85f79def-f633-40b7-97c2-3a8579e65af1
-
-Ready to draw? Visit [draw.nuxt.dev](https://draw.nuxt.dev) and share your best drawing!
-
 ## 🛠 Tech Stack
 
 - [Nuxt](https://nuxt.com) - The Intuitive Vue Framework
