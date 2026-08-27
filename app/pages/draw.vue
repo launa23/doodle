@@ -54,7 +54,7 @@ async function save(dataURL: string) {
           @save="save"
           @draw="onDraw"
         />
-        <AIDraw :drawing="drawing" class="mt-4" />
+<!--        <AIDraw :drawing="drawing" class="mt-4" />-->
       </div>
       <div
         v-else
