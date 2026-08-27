@@ -14,14 +14,19 @@ export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
   compatibilityDate: '2025-10-14',
   runtimeConfig: {
+    session: {
+      password: process.env.NUXT_SESSION_PASSWORD || '',
+    },
     oauth: {
       google: {
         clientId: process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID || '',
         clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET || '',
+        redirectURL: process.env.NUXT_OAUTH_GOOGLE_REDIRECT_URL || undefined,
       },
       github: {
         clientId: process.env.NUXT_OAUTH_GITHUB_CLIENT_ID || '',
         clientSecret: process.env.NUXT_OAUTH_GITHUB_CLIENT_SECRET || '',
+        redirectURL: process.env.NUXT_OAUTH_GITHUB_REDIRECT_URL || undefined,
       },
     },
   },

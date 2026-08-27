@@ -1,4 +1,7 @@
 export default defineOAuthGoogleEventHandler({
+  config: {
+    redirectURL: process.env.NUXT_OAUTH_GOOGLE_REDIRECT_URL || undefined,
+  },
   async onSuccess(event, { user }) {
     await setUserSession(event, {
       user: {
