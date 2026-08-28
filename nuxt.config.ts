@@ -33,6 +33,9 @@ export default defineNuxtConfig({
         redirectURL: process.env.NUXT_OAUTH_GITHUB_REDIRECT_URL || undefined,
       },
     },
+    public: {
+      adminEmail: process.env.NUXT_ADMIN_EMAIL || '',
+    },
   },
   hub: {
     blob: true,

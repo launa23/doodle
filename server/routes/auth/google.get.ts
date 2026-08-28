@@ -8,6 +8,7 @@ export default defineOAuthGoogleEventHandler({
         provider: 'google',
         id: user.sub,
         name: user.name,
+        email: user.email,
         avatar: user.picture,
         url: '',
       },

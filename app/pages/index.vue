@@ -37,7 +37,13 @@ function drawingTitle(drawing: BlobObject) {
 </script>
 
 <template>
-  <div class="my-8">
+  <div class="my-3">
+    <!-- Subtitle instruction line directly below header -->
+    <div class="text-center mb-3 text-xs text-(--ui-text-muted) flex items-center justify-center gap-1.5 opacity-85">
+      <UIcon name="i-ph-hand-tap-duotone" class="w-4 h-4 text-amber-400 animate-pulse" />
+      <span>Chạm vào ảnh</span>
+    </div>
+
     <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
       <div
         v-for="drawing in data?.blobs"

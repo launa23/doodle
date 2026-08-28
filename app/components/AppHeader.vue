@@ -1,8 +1,19 @@
 <script setup>
 import iconImg from '~/assets/img/icon.jpg'
 
-const { loggedIn, clear } = useUserSession()
+const { user, loggedIn, clear } = useUserSession()
+const config = useRuntimeConfig()
 const colorMode = useColorMode()
+
+const isAdmin = computed(() => {
+  if (!loggedIn.value || !user.value) return false
+  const adminEmail = config.public?.adminEmail
+  if (adminEmail) {
+    return user.value.email === adminEmail || user.value.id === adminEmail
+  }
+  return true
+})
+
 // Computed
 const isDark = computed({
   get() {
@@ -45,14 +56,27 @@ const isDark = computed({
         <UButton
           to="/draw"
           icon="i-ph-pencil"
+          class="shrink-0"
         >
           Vẽ
         </UButton>
         <UButton
-          v-if="loggedIn"
+          v-if="loggedIn && isAdmin"
+          to="/manage"
           color="neutral"
           variant="subtle"
+          icon="i-ph-shield-check-duotone"
+          title="Quản trị bức vẽ (Admin)"
+          class="shrink-0 whitespace-nowrap"
+        >
+          <span class="inline">Quản lý</span>
+        </UButton>
+        <UButton
+          v-if="loggedIn"
+          color="neutral"
+          variant="ghost"
           icon="i-ph-power"
+          title="Đăng xuất"
           @click="clear"
         />
       </div>
